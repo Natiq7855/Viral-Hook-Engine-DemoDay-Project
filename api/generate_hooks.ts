@@ -1,11 +1,11 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+
 import { buildGenerationResult } from "../src/lib/generateHooks.js";
 
 export const config = {
   runtime: "nodejs",
 };
 
-export default async function handler(request: VercelRequest, response: VercelResponse) {
+export default async function handler(request: any, response: any) {
   if (request.method !== "POST") {
     response.status(405).json({ error: "Method not allowed" });
     return;
