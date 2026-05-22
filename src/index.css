@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Custom styles for glowing effects matching elite creator dashboard tools */
+@layer utilities {
+  .glow-purple {
+    box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.4);
+  }
+  .glow-green {
+    box-shadow: 0 0 25px -5px rgba(34, 197, 94, 0.3);
+  }
+  .bg-grid-ambient {
+    background-size: 30px 30px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  }
+}
+
+/* Base style settings */
+body {
+  background-color: #0b0c10;
+  color: #f3f4f6;
+}
