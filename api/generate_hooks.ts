@@ -1,16 +1,23 @@
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { buildGenerationResult } from "../src/lib/generateHooks";
 
-export default async function handler(request: Request) {
+export const config = {
+  runtime: "nodejs",
+};
+
+export default async function handler(request: VercelRequest, response: VercelResponse) {
   if (request.method !== "POST") {
-    return Response.json({ error: "Method not allowed" }, { status: 405 });
+    response.status(405).json({ error: "Method not allowed" });
+    return;
   }
 
   try {
-    const body = await request.json();
+    const body = typeof request.body === "string" ? JSON.parse(request.body) : request.body;
     const { textInput, urlInput, niche, tone, useMock } = body ?? {};
 
     if (!textInput || String(textInput).trim().length === 0) {
-      return Response.json({ error: "Input text is required" }, { status: 400 });
+      response.status(400).json({ error: "Input text is required" });
+      return;
     }
 
     const result = await buildGenerationResult({
@@ -21,14 +28,11 @@ export default async function handler(request: Request) {
       useMock: Boolean(useMock),
     });
 
-    return Response.json(result);
+    response.status(200).json(result);
   } catch (error) {
-    return Response.json(
-      {
-        success: false,
-        errorDetails: error instanceof Error ? error.message : "Unexpected server error",
-      },
-      { status: 500 },
-    );
+    response.status(500).json({
+      success: false,
+      errorDetails: error instanceof Error ? error.message : "Unexpected server error",
+    });
   }
 }
