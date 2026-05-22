@@ -64,26 +64,6 @@ yarn preview
 - `build` — produce a production build.
 - `preview` — locally preview the production build.
 
-**Contributing**
-
-- Contributions are welcome. Open an issue or PR with a clear description and tests or reproducible steps when appropriate.
-
-**License**
-
-- This project does not include a license file. Add a `LICENSE` if you plan to publish or share this repository publicly.
-
----
-
-If you want, I can update the README with specific usage examples, API docs, environment variables, or add a license. 
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
-
-# Run and deploy your AI Studio app
-
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/c1611c41-a768-4c80-a0c6-44aa36380d7a
 
 ## Run Locally
 
