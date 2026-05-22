@@ -107,7 +107,8 @@ export default function App() {
     setIsPlaying(false);
 
     try {
-      const response = await fetch("/api/generate_hooks", {
+      const apiBase = import.meta.env.VITE_API_BASE_URL ?? "";
+      const response = await fetch(`${apiBase}/api/generate_hooks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -119,7 +120,15 @@ export default function App() {
         })
       });
 
-      const resData = await response.json();
+      const contentType = response.headers.get("content-type") || "";
+      const resData = contentType.includes("application/json")
+        ? await response.json()
+        : { success: false, errorDetails: await response.text() };
+
+      if (!response.ok) {
+        throw new Error(resData.errorDetails || `Request failed with status ${response.status}`);
+      }
+
       if (resData.success) {
         setResult(resData.data);
         if (resData.apiKeyAlert) {
