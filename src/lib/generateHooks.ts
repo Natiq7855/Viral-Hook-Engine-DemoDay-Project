@@ -136,8 +136,9 @@ export async function buildGenerationResult(input: { textInput: string; urlInput
     };
   }
 
-  const ai = getGeminiClient();
-  const prompt = `
+  try {
+    const ai = getGeminiClient();
+    const prompt = `
 You are a elite short-form video creator and viral retention specialist (TikTok, YouTube Shorts, Instagram Reels expert).
 Analyze the following source text and extract 5 distinct, highly engaging hook variants and a perfectly syncopated 15-second creator script.
 
@@ -156,7 +157,7 @@ Please generate exactly:
 2. A 15-second short-form video script divided into 4 sequential timeline clips.
 `;
 
-const response = await ai.models.generateContent({
+  const response = await ai.models.generateContent({
     model: "gemini-3.5-flash",
     contents: prompt,
     config: {
@@ -206,10 +207,19 @@ const response = await ai.models.generateContent({
     },
   });
 
-  return {
-    success: true,
-    data: JSON.parse(response.text || "{}"),
-    isMock: false,
-    apiKeyAlert: false,
-  };
+    return {
+      success: true,
+      data: JSON.parse(response.text || "{}"),
+      isMock: false,
+      apiKeyAlert: false,
+    };
+  } catch (error) {
+    return {
+      success: true,
+      data: generateAdaptiveMockData(textInput, tone, niche, urlInput),
+      isMock: true,
+      apiKeyAlert: true,
+      errorDetails: error instanceof Error ? error.message : "Gemini unavailable; using fallback content.",
+    };
+  }
 }
