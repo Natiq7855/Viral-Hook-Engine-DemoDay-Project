@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { buildGenerationResult } from "../src/lib/generateHooks";
+import { buildGenerationResult } from "../src/lib/generateHooks.js";
 
 export const config = {
   runtime: "nodejs",
