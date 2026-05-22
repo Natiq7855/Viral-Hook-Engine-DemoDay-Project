@@ -1,0 +1,6 @@
+{
+  "name": "Viral Hook Engine",
+  "description": "Generate high-performing, viral short-form video hooks and 15-second visual/audio creator scripts from web pages or raw text.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
